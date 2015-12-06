@@ -1,0 +1,23 @@
+*** Settings ***
+Resource          ../skyroam-sim充值.txt
+Resource          ../skyroam-sim卡管理.txt
+
+*** Test Cases ***
+输入正确充值金额保存成功
+    用户登录    ${username}    ${password}
+    选择菜单    SIM卡管理    SIM卡余额&明细
+    选择要充值的SIM卡    89630311101040108795
+    进入充值页面
+    输入充值金额并保存    100
+    检查充值是否成功    operated succesfully!
+    关闭浏览器
+
+输入最大值+1
+
+输入边界值验证
+
+输入为空验证
+
+输入项规则验证
+
+取消充值

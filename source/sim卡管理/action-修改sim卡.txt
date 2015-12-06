@@ -1,0 +1,10 @@
+*** Settings ***
+Library           skyroamautopjt.sim.UpdateSim.UpdateSim
+
+*** Keywords ***
+点击修改页面的保存按钮
+    update Sim Save Button
+
+点击要修改的SIM卡
+    [Arguments]    ${alertSim}
+    select Sim    ${alertSim}

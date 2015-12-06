@@ -1,0 +1,183 @@
+*** Settings ***
+Test Timeout      2 hours
+Resource          ../skyroam-sim卡管理.txt
+Resource          skyroam-新增sim卡.txt
+
+*** Variables ***
+${numMenu}        1
+@{simItem}        8986260543543962856a    21854922    澳门CTM    01    澳门CTM    澳门CTM    都支持
+...               WCDMA    数据短信    待分配    99999    999999299999    123456    9
+...               GMT+8    112111110111169    111111    111111    111111    111111    sssss
+@{simItema}       8986260543578962856b    21852323    香港SmarTone    06    香港SmarTone $24套餐    香港SmarTone    2G
+...               GSM    语音短信    已入库    99999    999999299999    123456    9
+...               GMT+9    112111110111161    111112    111112    111112    111113    s2aaaassss
+@{simItemb}       8986260543578962856c    21852324    台湾大哥大    97    台湾大哥大    台湾大哥大    都支持
+...               WCDMA    语音    待分配    94599    999999299999    123456    9
+...               GMT+10    112111110111162    111111    111111    111111    111111    sssss
+@{simItemc}       8986260543578962856d    21852325    中国联通3G    01    中国联通3G    中国联通3G    3G
+...               WCDMA    数据短信    已上架    99979    999999299999    123456    9
+...               GMT+8    112111110111163    111111    111111    111111    111111    ssshhhhhss
+@{simItemd}       8986260543578962856e    21852326    泰国DTAC    18    澳门CTM    澳门CTM    都支持
+...               WCDMA    数据短信    待分配    99999    999999299999    123456    9
+...               GMT+8    112111110111164    111111    111111    111111    111111    sssss
+@{simIteme}       8986260543578962856f    21852327    澳门CTM    01    澳门CTM    澳门CTM    都支持
+...               WCDMA    数据短信    待分配    99999    999999299999    123456    9
+...               GMT+8    112111110111165    111111    111111    111111    111111    sssss
+@{simItemf}       8986260543578962856g    21852328    澳门CTM    01    澳门CTM    澳门CTM    都支持
+...               WCDMA    数据短信    待分配    99999    999999299999    123456    9
+...               GMT+8    112111110111166    111111    111111    111111    111111    sssss
+@{carrierList}    中国移动    香港SmarTone    美国T-Mobile    菲律宾Smart    泰国DTAC    澳门CTM    香港PCCW
+...               台湾大哥大    中国联通3G    印尼Telkomsel    印度Clay-英国T-Mobile    7899    中国联
+@{communication}    3G    2G    都支持
+@{network}        CDMA    WCDMA    GSM
+@{serverType}     数据    语音    短信    语音数据    数据短信    语音短信    都支持
+@{status}         已入库    已上架    待分配    已拔出    已下架
+@{GMT}            GMT0    GMT+1    GMT+2    GMT+3    GMT+4    GMT+5    GMT+6
+...               GMT+7    GMT+8    GMT+9    GMT+10    GMT+11    GMT+12    GMT-1
+...               GMT-2    GMT-3    GMT-4    GMT-5    GMT-6    GMT-7    GMT-8
+...               GMT-9    GMT-10    GMT-11    GMT-12
+@{Smart}          03
+@{yqmnc}          03
+@{yqmnca}         01
+@{yqapn}          菲律宾Smart
+@{yqapna}         澳门CTM
+@{yqpackage}      菲律宾Smart套餐
+@{yqpackagea}     澳门CTM
+
+*** Test Cases ***
+新增一张输入正常的SIM卡-delete
+    ${numMenu}    Evaluate    ${numMenu}
+    用户登录    ${username}    ${password}
+    选择菜单    SIM卡管理    SIM卡信息
+    进入新增SIM卡窗口并输入Sim信息    @{simItem}
+    检查保存SIM卡后弹出提示框中文本信息，并点击OK    operated succesfully!
+    关闭浏览器
+
+输入边界值验证
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simIteme}
+    检查保存后页面提示    operated succesfully!
+
+对必输输入项为空验证
+    进入新增页面不输入任何项保存    admin    111111
+    检查ICCID输入框显示红色
+    输入ICCID    125845151116666
+    不输入信息点击保存按钮
+    检查电话号码输入框显示红色
+    输入电话号码    18512121212
+    不输入信息点击保存按钮
+    检查运营商输入框显示红色
+    输入运营商    泰国DTAC
+    不输入信息点击保存按钮
+    检查MNC输入框显示红色
+    输入MNC    18
+    不输入信息点击保存按钮
+    检查套餐输入框显示红色
+    输入套餐    泰国DTAC 399套餐
+    不输入信息点击保存按钮
+    检查APN输入框显示红色
+    输入APN    泰国DTAC
+    检查服务类型输入框显示红色
+    输入服务类型    语音数据
+    检查余额输入框显示红色
+    输入余额    500
+    不输入信息点击保存按钮
+    检查可使用流量输入框显示红色
+    输入可使用流量    800000
+    不输入信息点击保存按钮
+    检查结账日输入框显示红色
+    输入结账日    23
+    不输入信息点击保存按钮
+    检查时区输入框显示红色
+    输入时区    GMT+2
+    不输入信息点击保存按钮
+    检查IMSI输入框显示红色
+    输入IMSI    555555558888888
+    点击保存按钮
+    检查保存后页面提示    operated succesfully!
+
+输入下拉框枚举值保存成功0001
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItem}
+    检查保存后页面提示    operated succesfully!
+
+输入下拉框枚举值保存成功0002
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItema}
+    检查保存后页面提示    operated succesfully!
+
+输入下拉框枚举值保存成功0003
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItemb}
+    检查保存后页面提示    operated succesfully!
+
+输入下拉框枚举值保存成功0004
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItemc}
+    检查保存后页面提示    operated succesfully!
+
+输入下拉框枚举值保存成功0005
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItemd}
+    检查保存后页面提示    operated succesfully!
+
+下拉框值验证001
+    进入SIM卡新增页面    admin    111111
+    获取运营商下拉框枚举值并比较    @{carrierList}
+    获取通信技术枚举值并比较    @{communication}
+    获取网络制式枚举值并比较    @{network}
+    获取状态下拉框枚举值并比较    @{status}
+    获取时区下拉框枚举值并比较    @{GMT}
+    关闭浏览器
+
+下拉框值验证002
+    进入SIM卡新增页面    admin    111111
+    输入运营商    菲律宾Smart
+    获取MNC下拉框枚举值并比较    @{yqmnc}
+    输入MNC    03
+    获取套餐下拉框枚举值并比较    @{yqpackage}
+    输入套餐    菲律宾Smart套餐
+    获取APN下拉框枚举值并比较    @{yqapn}
+    输入apn    菲律宾Smart
+    关闭浏览器
+
+下拉框值验证003
+    进入SIM卡新增页面    admin    111111
+    输入运营商    澳门CTM
+    获取MNC下拉框枚举值并比较    @{yqmnca}
+    输入MNC    03
+    获取套餐下拉框枚举值并比较    @{yqpackagea}
+    输入套餐    澳门CTM
+    关闭浏览器
+
+输入项规则验证
+    进入SIM卡新增页面    admin    111111
+
+输入最大值+1
+    进入SIM卡新增页面    admin    111111
+    输入ICCID    22222222222222222222
+    输入电话号码    13122233344
+    输入服务类型    语音数据
+    输入时区    GMT+5
+    输入IMSI    3322233333333
+    输入余额    1000000001
+    输入可使用流量    10000000000000000000
+    输入结账日    32
+    点击保存按钮
+    检查余额输入框显示红色
+    检查结账日输入框显示红色
+    检查可使用流量输入框显示红色
+
+取消新增
+    进入SIM卡新增页面    admin    111111
+    点击取消按钮
+
+新增一张输入正常的SIM卡
+    进入SIM卡新增页面    admin    111111
+    输入sim卡信息后保存    @{simItem}
+    检查保存后页面提示    operated succesfully!
+
+*** Keywords ***
+输入APN
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    APN:    ${iccidNum}

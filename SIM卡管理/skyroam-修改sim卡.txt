@@ -1,0 +1,11 @@
+*** Keywords ***
+检查修改SIM卡保存后值
+    [Arguments]    ${simnum}    @{yqlist}
+    select Sim    ${simnum}
+    ${actlist}    get All SimItem
+    check Sima Data    @{yqlist}
+
+修改SIM卡项的值保存并检查提示信息
+    [Arguments]    @{simItem}
+    edit Sim Save    @{simItem}
+    check AlertSim Result text    operated succesfully!

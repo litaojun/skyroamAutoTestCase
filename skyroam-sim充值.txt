@@ -1,0 +1,18 @@
+*** Settings ***
+Library           skyroamautopjt.sim.ReChargeSim.ReChargeSim
+
+*** Keywords ***
+选择要充值的SIM卡
+    [Arguments]    ${simiccid}
+    select ReCharge Sim    ${simiccid}
+
+输入充值金额并保存
+    [Arguments]    ${money}
+    enter Money Save    ${money}
+
+进入充值页面
+    enter ReCharge Win
+
+检查充值是否成功
+    [Arguments]    ${rstText}
+    check ReCharge Result    ${rstText}

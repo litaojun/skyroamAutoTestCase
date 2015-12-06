@@ -1,0 +1,24 @@
+*** Settings ***
+Library           skyroamautopjt.sim.AddSim.AddSim
+
+*** Keywords ***
+用户登录
+    [Arguments]    ${usernametest}    ${tag}
+    login Skyroam Web    ${usernametest}    ${tag}
+
+选择菜单
+    [Arguments]    ${menuNum}    ${menuItemName}
+    select Menu Item    ${menuNum}    ${menuItemName}
+
+关闭浏览器
+    close Browser
+
+获取某个 输入框的class属性
+    [Arguments]    ${itemName}
+    ${classValue}    get One SimItemClass    ${itemName}
+    [Return]    ${classValue}
+
+检查输入框的class属性，以判断是否显示红色
+    [Arguments]    ${itemName}    ${actClass}
+    ${className}    get One SimItemClass    ${itemName}
+    check two data    ${className}    ${actClass}

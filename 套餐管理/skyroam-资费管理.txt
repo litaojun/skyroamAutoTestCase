@@ -1,0 +1,21 @@
+*** Settings ***
+Library           skyroamautopjt.package.chge.ChargeMgr.ChargeMgr
+
+*** Keywords ***
+进入资费新增页面
+    login Skyroam Web    admin    111111
+    select Menu Item    套餐管理    资费管理
+    enter_NewCharge_Win
+
+输入资费信息并保存
+    [Arguments]    @{chargeItem}
+    input_Charge_Item_Sv    @{chargeItem}
+
+进入资费产品或修改页面
+    [Arguments]    ${chargeItem}
+    view_ChargeItem
+
+检查资费新增是否成功
+    [Arguments]    ${resttxt}
+    check_Result    ${resttxt}
+    close Browser

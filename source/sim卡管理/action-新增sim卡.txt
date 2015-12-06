@@ -1,0 +1,44 @@
+*** Settings ***
+Library           skyroamautopjt.sim.AddSim.AddSim
+Resource          ../publickey.txt
+
+*** Keywords ***
+点击SIM卡管理页面的新增按钮
+    open AddSim Win
+
+点击新增sim页面保存按钮
+    add Win save
+
+输入新增sim卡页面所有项
+    [Arguments]    @{simItemContent}
+    enter_New_Simitem    @{simItemContent}
+
+输入sim卡新增页面的一个项
+    [Arguments]    ${itemName}    ${itemValue}
+    enter One SimItem    ${itemName}    ${itemValue}
+
+输入sim卡新增页面多个项
+    [Arguments]    ${itemListName}    ${itemListValue}
+    enter_Mut_SimItem    ${itemListName}    ${itemListValue}
+
+检查保存SIM卡后弹出提示框中文本信息，并点击OK
+    [Arguments]    ${winText}
+    check Test Result    ${winText}
+
+点击sim卡管理->sim卡管理子菜单
+    选择菜单    SIM卡管理    SIM卡信息
+
+获取一个指定下拉列表的所有枚举值
+    [Arguments]    ${itemName}
+    ${retlist}    get One Seletct List    ${itemName}
+    [Return]    ${retlist}
+
+比较两个值是否一致
+    [Arguments]    ${a}    @{b}
+    check two data    ${a}    @{b}
+
+点击新增sim页面取消按钮
+    add Win Cancel Button
+
+点击新增sim页面保存按钮-不输入
+    add Win not save

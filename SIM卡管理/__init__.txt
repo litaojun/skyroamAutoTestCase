@@ -1,0 +1,4 @@
+*** Settings ***
+Resource          ../skyroam-sim卡管理.txt
+
+*** Variables ***

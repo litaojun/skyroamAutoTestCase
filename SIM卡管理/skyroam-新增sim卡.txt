@@ -1,0 +1,177 @@
+*** Settings ***
+Resource          ../skyroam-sim卡管理.txt
+Resource          ../Source/Sim卡管理/action-新增sim卡.txt
+Resource          ../Source/publickey.txt
+
+*** Keywords ***
+进入新增SIM卡窗口并输入Sim信息
+    [Arguments]    @{simItemContent}
+    open AddSim Win
+    enter Sim Item    @{simItemContent}
+
+进入SIM卡新增页面
+    [Arguments]    ${username}    ${password}
+    用户登录    ${username}    ${password}
+    点击sim卡管理->sim卡管理子菜单
+    点击SIM卡管理页面的新增按钮
+
+输入sim卡信息后保存
+    [Arguments]    @{simItemList}
+    输入新增sim卡页面所有项    @{simItemList}
+    点击新增sim页面保存按钮
+
+检查保存后页面提示
+    [Arguments]    ${txtvalue}
+    检查保存SIM卡后弹出提示框中文本信息，并点击OK    ${txtvalue}
+    关闭浏览器
+
+进入新增页面不输入任何项保存
+    [Arguments]    ${username}    ${password}
+    进入SIM卡新增页面    ${username}    ${password}
+    不输入信息点击保存按钮
+
+检查电话号码输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    电话号码:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+检查ICCID输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    ICCID:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+检查运营商输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    运营商:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-empty-field x-form-invalid
+
+检查MNC输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    MNC:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+检查套餐输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    套餐:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+检查APN输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    APN:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+检查服务类型输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    服务类型:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-empty-field x-trigger-noedit x-form-invalid
+
+检查余额输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    余额:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-num-field x-form-invalid
+
+检查可使用流量输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    可使用流量:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-num-field x-form-invalid
+
+检查结账日输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    结账日:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-num-field x-form-invalid
+
+检查时区输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    时区:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-empty-field x-trigger-noedit x-form-invalid
+
+检查IMSI输入框显示红色
+    ${colorvalue}    获取某个 输入框的class属性    IMSI:
+    比较两个值是否一致    ${colorvalue}    x-form-text x-form-field x-form-invalid
+
+获取指定下拉框的枚举值并比较
+    [Arguments]    ${itemName}    @{yqlist}
+    ${xllist}    获取一个指定下拉列表的所有枚举值    ${itemName}
+    比较两个值是否一致    ${xllist}    @{yqlist}
+
+输入ICCID
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    ICCID:    ${iccidNum}
+
+输入电话号码
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    电话号码:    ${iccidNum}
+
+输入运营商
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    运营商:    ${iccidNum}
+
+输入MNC
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    MNC:    ${iccidNum}
+
+输入套餐
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    套餐:    ${iccidNum}
+
+输入服务类型
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    服务类型:    ${iccidNum}
+
+输入余额
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    余额:    ${iccidNum}
+
+输入可使用流量
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    可使用流量:    ${iccidNum}
+
+输入结账日
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    结账日:    ${iccidNum}
+
+输入时区
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    时区:    ${iccidNum}
+
+输入IMSI
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    IMSI:    ${iccidNum}
+
+点击保存按钮
+    点击新增sim页面保存按钮
+
+获取运营商下拉框枚举值并比较
+    [Arguments]    @{yqlist}
+    获取指定下拉框的枚举值并比较    运营商:    @{yqlist}
+
+获取通信技术枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    通信技术:    ${yqlist}
+
+获取网络制式枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    网络制式:    ${yqlist}
+
+获取服务类型下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    服务类型:    ${yqlist}
+
+获取时区下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    时区:    ${yqlist}
+
+获取状态下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    状态:    ${yqlist}
+
+获取MNC下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    MNC:    ${yqlist}
+
+获取套餐下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    套餐:    ${yqlist}
+
+点击取消按钮
+    点击新增sim页面取消按钮
+
+获取APN下拉框枚举值并比较
+    [Arguments]    ${yqlist}
+    获取指定下拉框的枚举值并比较    APN:    ${yqlist}
+
+输入apn
+    [Arguments]    ${iccidNum}
+    输入sim卡新增页面的一个项    APN:    ${iccidNum}
+
+不输入信息点击保存按钮
+    点击新增sim页面保存按钮-不输入
